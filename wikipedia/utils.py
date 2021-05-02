@@ -2,7 +2,9 @@ from wikipedia.enums import LinkTypes
 
 
 def analyze_link(link: str):
-    if not link.startswith('https://'):
+    if link.startswith('/wiki'):
+        return LinkTypes.WIKI
+    elif link.startswith('https://'):
         return LinkTypes.CORRECT_LINK
     else:
         return LinkTypes.OTHER_LANGUAGE
