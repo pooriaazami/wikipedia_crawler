@@ -4,7 +4,7 @@ from scrapy import Spider
 
 from wikipedia.enums import LinkTypes
 from wikipedia.glob import links
-from wikipedia.utils import analyze_link
+from wikipedia.utils import analyze_link, write_to_file
 
 
 class WikipediaSpider(Spider):
@@ -19,4 +19,5 @@ class WikipediaSpider(Spider):
             if analyze_link(link) == LinkTypes.CORRECT_LINK and not link in links:
                 url = response.urljoin(link)
                 links.add(link)
+                write_to_file('./links.txt', link)
                 yield scrapy.Request(url, callback=self.link_crawler)
